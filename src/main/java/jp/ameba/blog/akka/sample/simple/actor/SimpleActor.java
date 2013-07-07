@@ -14,6 +14,8 @@ public class SimpleActor extends UntypedActor {
 			System.out.println("message:" + message);
 		} else {
 			System.out.println("unhandled message.");
+
+			// 想定しない型のメッセージはスルーする
 			unhandled(message);
 		}
 	}

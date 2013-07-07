@@ -22,16 +22,15 @@ public class AskActorSystem {
 
 		String message = "hello.";
 
-		// send string
 		Integer result = 0;
 		try {
+			// メッセージを送信し、結果を受け取る
 			result = (Integer) Await.result(Patterns.ask(actor, message, 5000), Duration.create(5000, TimeUnit.MILLISECONDS));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		System.out.println("result=" + result);
 
-		// send string
 		try {
 			result = (Integer) Await.result(Patterns.ask(actor, message, 5000), Duration.create(5000, TimeUnit.MILLISECONDS));
 		} catch (Exception e1) {
@@ -39,8 +38,8 @@ public class AskActorSystem {
 		}
 		System.out.println("result=" + result);
 
-		// TimeoutException occured. cause send not string
 		try {
+			// 想定しない型を送信する。Exceptionが発生する
 			result = (Integer) Await.result(Patterns.ask(actor, 1, 5000), Duration.create(5000, TimeUnit.MILLISECONDS));
 		} catch (Exception e1) {
 			e1.printStackTrace();

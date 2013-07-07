@@ -28,8 +28,8 @@ public class LocalSystem implements Bootable {
 
 	private static final String AKKA_PROTOCOL = "akka";
 	private static final String REMOTE_SYSTEM_NAME = "remoteSys";
-	private static final String REMOTE_HOST_IP = "172.28.139.133";
-	private static final int REMOTE_HOST_PORT = 2552;
+	private static final String REMOTE_HOST_IP = "127.0.0.1";
+	private static final int REMOTE_HOST_PORT = 2553;
 
 	@Override
 	public void startup() {
