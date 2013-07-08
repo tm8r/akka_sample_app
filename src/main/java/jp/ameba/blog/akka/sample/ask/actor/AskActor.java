@@ -8,7 +8,7 @@ import akka.actor.UntypedActor;
  */
 public class AskActor extends UntypedActor {
 
-	int state = 0;
+	private int state = 0;
 
 	@Override
 	public void onReceive(Object message) throws Exception {
