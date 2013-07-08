@@ -35,7 +35,7 @@ public class LocalSystem implements Bootable {
 	public void startup() {
 		String message = "hello.";
 
-		// local actor test
+		// ローカルのActorを生成
 		System.out.println("local actor test.");
 		ActorRef localActor = system.actorOf(new Props(RemoteActor.class),
 				"localActor");
@@ -47,7 +47,7 @@ public class LocalSystem implements Bootable {
 		}
 		System.out.println("-----");
 
-		// remote actor test
+		// リモートのActorを生成
 		System.out.println("remote actor test.");
 		ActorRef remoteActor = system.actorOf(new Props(RemoteActor.class)
 		.withDeploy(new Deploy(new RemoteScope(new Address(
@@ -61,7 +61,7 @@ public class LocalSystem implements Bootable {
 		}
 		System.out.println("-----");
 
-		// router test with RoundRobinRouter
+		// ラウンドロビンでActorにメッセージを送信
 		System.out.println("router test with RoundRobinRouter.");
 		List<ActorRef> actors = new ArrayList<>();
 		actors.add(remoteActor);
@@ -79,7 +79,7 @@ public class LocalSystem implements Bootable {
 		}
 		System.out.println("-----");
 
-		// router test with BroadcastRouter
+		// ブロードキャストでActorにメッセージを送信
 		System.out.println("router test with BroadcastRouter.");
 		ActorRef broadcastRouter = system.actorOf(new Props(RemoteActor.class)
 		.withRouter(BroadcastRouter.create(actors)));
