@@ -23,7 +23,7 @@ import com.typesafe.config.ConfigFactory;
  */
 public class LocalSystem implements Bootable {
 
-	final ActorSystem system = ActorSystem.apply("localSys", ConfigFactory
+	final ActorSystem system = ActorSystem.create("localSys", ConfigFactory
 			.load().getConfig("localSetting"));
 
 	private static final String AKKA_PROTOCOL = "akka";
