@@ -13,10 +13,9 @@ public class AskActor extends UntypedActor {
 	@Override
 	public void onReceive(Object message) throws Exception {
 		if (message instanceof String) {
-			System.out.println("message:" + message);
+			System.out.println("message:" + message + ", path:" + self().path() + ", sender:" + sender().path());
 			sender().tell(++state, self());
 		} else {
-			System.out.println("unhandled message.");
 			unhandled(message);
 		}
 	}

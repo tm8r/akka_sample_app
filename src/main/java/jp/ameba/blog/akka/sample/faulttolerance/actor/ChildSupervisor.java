@@ -5,12 +5,13 @@ import static akka.actor.SupervisorStrategy.restart;
 import static akka.actor.SupervisorStrategy.resume;
 import scala.concurrent.duration.Duration;
 import akka.actor.ActorRef;
-import akka.actor.OneForOneStrategy;
+import akka.actor.AllForOneStrategy;
 import akka.actor.Props;
 import akka.actor.SupervisorStrategy;
 import akka.actor.SupervisorStrategy.Directive;
 import akka.actor.UntypedActor;
 import akka.japi.Function;
+import akka.routing.RoundRobinRouter;
 
 /**
  * 子Supervisorクラス
@@ -18,7 +19,7 @@ import akka.japi.Function;
  */
 public class ChildSupervisor extends UntypedActor {
 
-	private ActorRef childActor = getContext().actorOf(new Props(SubordinateActor.class), "childActor");
+	private ActorRef childActor = getContext().actorOf(new Props(SubordinateActor.class).withRouter(new RoundRobinRouter(3)), "childActor");
 
 	@Override
 	public void onReceive(Object message) throws Exception {
@@ -26,7 +27,7 @@ public class ChildSupervisor extends UntypedActor {
 	}
 
 	private static SupervisorStrategy strategy =
-			new OneForOneStrategy(10, Duration.create("1 minute"),
+			new AllForOneStrategy(10, Duration.create("1 minute"),
 					new Function<Throwable, Directive>() {
 				@Override
 				public Directive apply(Throwable t) {
@@ -46,5 +47,10 @@ public class ChildSupervisor extends UntypedActor {
 	@Override
 	public SupervisorStrategy supervisorStrategy() {
 		return strategy;
+	}
+	
+	@Override
+	public void postStop() {
+		System.out.println("[ChildSupervisor] postStop. path=" + self());
 	}
 }

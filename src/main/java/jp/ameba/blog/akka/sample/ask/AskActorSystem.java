@@ -22,6 +22,8 @@ public class AskActorSystem {
 
 		String message = "hello.";
 
+		actor.tell(message, null);
+
 		Integer result = 0;
 		try {
 			// メッセージを送信し、結果を受け取る
